@@ -1,14 +1,27 @@
 <html lang="ja">
-  <head>
-    <meta charset="utf-8"/>
+
+<head>
+    <meta charset="utf-8" />
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
+    <py-config>
+        packages = ["Janome"]
+    </py-config>
+    <input class="py-input" type="text" id="text" size=40 />
+    <button class="py-button" type="submit" py-click="wakati()">分かち書き</button>
+    <div id="output"></div>
     <py-script>
-      from datetime import datetime
-      now = datetime.now()
-      print(f"今は{now:%Y年%m月%d日 %H:%M:%S}です。")
+        from janome.tokenizer import Tokenizer
+
+        t = Tokenizer()
+        def wakati():
+        text = Element("text").value
+        tokens = t.tokenize(text, wakati=True)
+        display(" ".join(tokens), target="output")
     </py-script>
-  </body>
+</body>
+
 </html>
